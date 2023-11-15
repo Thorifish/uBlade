@@ -31,7 +31,7 @@ Running code
 -------
 
 ```
-$ ./weighted -w -src 319966 -tar 473408 -delta 1000 -nb 1024 -batch 20 -sample 100 -thread 10 ../input/biomine_in.txt
+$ ./weighted -w -src 2745 -tar 5292 -delta 1000 -nb 1024 -batch 20 -sample 100 -thread 10 ../input/gnu_in.txt
 ```
 The input graph is always treated as an weighted graph for edge probabiliies, hence flag "-w" is necessary.
 Flags "-src" and "-tar" stand for the source node and target node number. The code we present are weighted and unweighted examples of graph traversal, target node only depends the output.
