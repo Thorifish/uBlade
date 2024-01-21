@@ -63,6 +63,6 @@ WeightedAdjacencyGraph
 <w(m-1)>
 ```
 
-The edge weight $<w>$ is a compressed integer, we use three decimal places to express the probability of edges, hence w = (length + probability) * 1000. For example, an edge <e> with length 26 and probability 0.250 has <w> = 26250.
+The edge weight &lt;w>' is a compressed integer, we use three decimal places to express the probability of edges, hence w = (length + probability) * 1000. For example, an edge <e> with length 26 and probability 0.250 has <w> = 26250.
 
 This file is represented as plain text.
