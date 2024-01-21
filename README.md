@@ -30,7 +30,7 @@ $ make cleansrc #removes all executables and linked files from the ligra/ direct
 Running code
 -------
 Running code is done within the apps/ directory. 
-Use "./weighted -w -src SourceNode -tar TargetNode -delta Delta -nb NumberOfBuckets -batch BatchSize -sample SampleNumber -thread ThreadNumber DataGraph" or to perform graph traversal on uncertain grtaphs.
+Use "./weighted -w -src SourceNode -tar TargetNode -delta Delta -nb NumberOfBuckets -batch BatchSize -sample SampleNumber -thread ThreadNumber DataGraph" to perform graph traversal on uncertain grtaphs.
 
 | Flags     | Default value | Description                                                                                  |
 | --------- | ------------- | -------------------------------------------------------------------------------------------- |
