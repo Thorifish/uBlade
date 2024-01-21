@@ -29,14 +29,32 @@ $ make cleansrc #removes all executables and linked files from the ligra/ direct
 ```
 Running code
 -------
+Running code is done within the apps/ directory. 
+Use "./weighted -w -src SourceNode -tar TargetNode -delta Delta -nb NumberOfBuckets -batch BatchSize -sample SampleNumber -thread ThreadNumber DataGraph" or to perform graph traversal on uncertain grtaphs.
 
+| Flags     | Default value | Description                                                                                  |
+| --------- | ------------- | -------------------------------------------------------------------------------------------- |
+| -w        | none          | The input graph is always treated as an weighted graph for edge probabiliies, hence necessary|
+| -src      | 0             | The index of the source node                                                                 |
+| -tar      | 1             | The index of the target node whose reliability to be outputed                                |
+| -delta    | 1             | Parameter delta for Delta-Stepping                                                           |
+| -nb       | 128           | Parameter number of buckets for Delta-Stepping, must be a power of 2                         |
+| -batch    | 1             | Parameter number of batch_size, number of possible worlds to be performed in each batch      |
+| -sample   | 100           | Total number of possible worlds to be performed in the traversal                             |
+| -thread   | 1             | Number of threads to be used                                                                 |
+
+For example, to perform 100 possible worlds on the graph 'gnu_in.txt' with the source node 2745 and the target node 5292, set Delta to 1000, the number of buckets to 1024, the batch size to 20, and use 10 threads. The running code is as follows:
 ```
 $ ./weighted -w -src 2745 -tar 5292 -delta 1000 -nb 1024 -batch 20 -sample 100 -thread 10 ../input/gnu_in.txt
 ```
-The input graph is always treated as an weighted graph for edge probabiliies, hence flag "-w" is necessary.
-Flags "-src" and "-tar" stand for the source node and target node number. The code we present are weighted and unweighted examples of graph traversal, target node only depends the output.
-Flags "-delta" and "-nb" are delta-stepping parameters delta and number of buckets.
-Flags "-batch", "-sample" and "-thread" stand for batch_size, total sample number and thread numbers.
+Kindly replace "weighted" with "unweighted" to excute on unweighted graphs. In this case, edges weights are considered as 1. 
+For example, following code excutes 100 possible worlds on the graph 'gnu_in.txt' as an unweighted graph with the source node 2745 and the target node 5292, set Delta to 2, the number of buckets to 128, the batch size to 20, and use 1 thread.
+```
+$ ./unweighted -w -src 2745 -tar 5292 -delta 2 -batch 20 -sample 200 ../input/gnu_in.txt
+```
+
+We provide basic usage for both weighted and unweighted graphs, with and without edge weights. The output of the applications is the number of possible worlds that reach the inputted target nodes with the most probable shortest distance (if weighted). All sampling results are stored in the array "distances," which is an n * sample_number-sized array where all nodes' reliability and distance are stored consecutively. All applications listed in our experiments can be performed by collecting information from this array. For example, for SSSD, the most probable shortest distance from source to any node t can be obtained by collecting information from distances[i], where i varies from t×sample_number to (t×sample_number−1).
+
 
 
 Input Formats
@@ -66,8 +84,4 @@ WeightedAdjacencyGraph
 The edge weight &lt;w> is a compressed integer, we use three decimal places to express the probability of edges, hence w = (length + probability) * 1000. For example, an edge &lt;e> with length 26 and probability 0.250 has &lt;w> = 26250.
 
 This file is represented as plain text.
-
-User Define Applications
------------------------
-We provide basic usage for both weighted and unweighted graphs. The output of the applications is the number of possible worlds that reach the inputted target nodes with the most probable shortest distance (if weighted). All sampling results are stored in the array "distances", which is an n * sample_number-sized array where all nodes' reliability and distance are stored consecutively. All applications listed in our experiments can be performed by collecting information from this array. For example, for SSSD, the most probable shortest distance from source to any node t can be obtained by collecting information from distances[i], where i varies from t×sample_number to (t×sample_number−1).
 
