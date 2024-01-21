@@ -66,3 +66,8 @@ WeightedAdjacencyGraph
 The edge weight &lt;w> is a compressed integer, we use three decimal places to express the probability of edges, hence w = (length + probability) * 1000. For example, an edge &lt;e> with length 26 and probability 0.250 has &lt;w> = 26250.
 
 This file is represented as plain text.
+
+User Define Applications
+-----------------------
+We provide basic usage for both weighted and unweighted graphs, with and without edge weights. The output of the applications is the number of possible worlds that reach the inputted target nodes with the most probable shortest distance (if weighted). All sampling results are stored in the array "distances," which is an n * sample_number-sized array where all nodes' reliability and distance are stored consecutively. All applications listed in our experiments can be performed by collecting information from this array. For example, for SSSD, the most probable shortest distance from source to any node t can be obtained by collecting information from distances[i], where i varies from t×sample_number to (t×sample_number−1).
+
